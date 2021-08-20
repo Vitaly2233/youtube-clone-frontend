@@ -1,25 +1,33 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react";
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./components/AppRouter";
+import Navbar from "./components/Navbar";
+import { AuthContext } from "./context";
+import "./styles/App.css";
+import { cookieValue } from "./utils/cookie-parser";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    const [isAuth, setIsAuth] = useState(false);
+
+    useEffect(() => {
+        if (cookieValue(document.cookie, "token")) setIsAuth(true);
+    }, []);
+
+    return (
+        <AuthContext.Provider
+            value={{
+                isAuth,
+                setIsAuth,
+            }}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+            <div className="App">
+                <Navbar />
+                <BrowserRouter>
+                    <AppRouter />
+                </BrowserRouter>
+            </div>
+        </AuthContext.Provider>
+    );
 }
 
 export default App;

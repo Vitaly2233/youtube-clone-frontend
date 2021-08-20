@@ -1,0 +1,10 @@
+.authInput {
+  font-size: 25px;
+  margin: 15px 0;
+  height: 55px;
+  width: 400px;
+  padding: 20px;
+}
+.authContainer {
+  margin: 30px 0;
+}
